@@ -1,12 +1,30 @@
-a project i wanted to build for fun. 
+# Aglet
 
-# Project Definition
+A project I wanted to build for fun.
 
-## 1. Project Overview
+## Index
+
+- [Project Definition](#project-definition)
+  - [1. Project Overview](#1-project-overview)
+  - [2. Example Use Case](#2-example-use-case)
+  - [3. Core Terminology](#3-core-terminology)
+  - [4. Expected Behaviour](#4-expected-behaviour)
+  - [5. Learning Goals](#5-learning-goals)
+  - [6. Learning and Implementation Principle](#6-learning-and-implementation-principle)
+  - [7. Chosen Language and Technology](#7-chosen-language-and-technology)
+  - [8. Project Stages and Learning Resources](#8-project-stages-and-learning-resources)
+  - [9. Success Criteria](#9-success-criteria)
+  - [10. Non-Goals](#10-non-goals)
+  - [11. Academic Engagement](#11-academic-engagement)
+  - [12. Final Deliverables](#12-final-deliverables)
+
+## Project Definition
+
+### 1. Project Overview
 
 A fault-tolerant distributed job-processing engine written primarily in Java.
 
-A user submits a large piece of work called a *job. DurableFlow divides the job into smaller **tasks*, distributes those tasks across multiple worker processes, tracks their execution, retries failures and combines the results.
+A user submits a large piece of work called a *job*. Aglet divides the job into smaller **tasks**, distributes those tasks across multiple worker processes, tracks their execution, retries failures and combines the results.
 
 The first supported workload will process large CSV transaction files. Document processing and AI inference will be added later as workload plug-ins.
 
@@ -19,18 +37,18 @@ This document defines the project and its intended behaviour. It does not define
 
 ---
 
-## 2. Example Use Case
+### 2. Example Use Case
 
 A user submits:
 
 > Validate and analyse a CSV file containing 1,000,000 transaction rows.
 
-DurableFlow should:
+Aglet should:
 
 1. Accept and validate the job.
 2. Divide the CSV into smaller partitions.
 3. Create one task for each partition.
-4. assign tasks to available worker processes.
+4. Assign tasks to available worker processes.
 5. Track pending, running, completed and failed tasks.
 6. Detect failed or disconnected workers.
 7. Reassign unfinished tasks.
@@ -46,9 +64,9 @@ The document-processing code would be different from the CSV-processing code, bu
 
 ---
 
-## 3. Core Terminology
+### 3. Core Terminology
 
-### Job
+#### Job
 
 A job is the complete operation requested by a user.
 
@@ -59,7 +77,7 @@ Examples:
 - Extract structured fields from documents.
 - Run an AI model over a document collection.
 
-### Task
+#### Task
 
 A task is one independently executable part of a job.
 
@@ -69,13 +87,13 @@ Examples:
 - Validate partition 42.
 - Extract fields from documents 500 to 599.
 
-### Worker
+#### Worker
 
 A worker is a separate process that receives tasks, executes workload-specific code and reports results and heartbeats.
 
 Workers may crash, disconnect, become slow or accidentally execute a task more than once.
 
-### Workload Handler
+#### Workload Handler
 
 A workload handler contains the actual business logic.
 
@@ -92,13 +110,13 @@ Later handlers:
 - LLM inference
 - Image processing
 
-The DurableFlow engine manages execution. It does not need to understand what an invoice, transaction or AI model means.
+The Aglet engine manages execution. It does not need to understand what an invoice, transaction or AI model means.
 
 ---
 
-## 4. Expected Behaviour
+### 4. Expected Behaviour
 
-DurableFlow must:
+Aglet must:
 
 - Accept a job and return a unique job identifier.
 - Divide jobs into smaller tasks.
@@ -117,15 +135,15 @@ DurableFlow must:
 - Produce deterministic results matching a trusted single-process implementation.
 - Expose metrics, traces and structured logs.
 
-DurableFlow will provide *at-least-once task execution*.
+Aglet will provide *at-least-once task execution*.
 
 It will not claim exactly-once execution. A task may execute more than once, but idempotency and fenced result commits must prevent incorrect final effects.
 
 ---
 
-## 5. Learning Goals
+### 5. Learning Goals
 
-| Subject | Concepts to learn | Application in DurableFlow |
+| Subject | Concepts to learn | Application in Aglet |
 |---|---|---|
 | OOP | Encapsulation, interfaces, composition, SOLID and design patterns | Jobs, tasks, handlers, schedulers, retry policies and storage adapters |
 | DSA | DAGs, heaps, hashing, trees, queues and graph traversal | Dependencies, priority scheduling, indexes and task ordering |
@@ -141,7 +159,7 @@ It will not claim exactly-once execution. A task may execute more than once, but
 
 ---
 
-## 6. Learning and Implementation Principle
+### 6. Learning and Implementation Principle
 
 The project will follow this sequence:
 
@@ -160,9 +178,9 @@ These internal implementations are educational. They will not be presented as re
 
 ---
 
-## 7. Chosen Language and Technology
+### 7. Chosen Language and Technology
 
-### Primary Language
+#### Primary Language
 
 *Java 21*
 
@@ -178,7 +196,7 @@ Java is selected because it provides:
 
 C++ may later be used for an optional high-performance worker, but it is not required for the main engine.
 
-### Core Tooling
+#### Core Tooling
 
 - Java 21
 - Maven
@@ -187,7 +205,7 @@ C++ may later be used for an optional high-performance worker, but it is not req
 - JMH
 - GitHub Actions
 
-### Production-Stage Infrastructure
+#### Production-Stage Infrastructure
 
 - gRPC and Protocol Buffers for communication
 - PostgreSQL for authoritative job and task state
@@ -200,7 +218,7 @@ C++ may later be used for an optional high-performance worker, but it is not req
 
 Kubernetes and a complex frontend are outside the initial scope.
 
-### RabbitMQ’s Role
+#### RabbitMQ’s Role
 
 RabbitMQ will transport task-assignment messages. It will not be the source of truth.
 
@@ -217,11 +235,11 @@ This means RabbitMQ can lose or duplicate a message without losing or corrupting
 
 ---
 
-## 8. Project Stages and Learning Resources
+### 8. Project Stages and Learning Resources
 
 The listed resources are intentionally limited. Study only the relevant sections needed for the current stage.
 
-### Stage 1 Java OOP and Data Structures
+#### Stage 1 Java OOP and Data Structures
 
 Build:
 
@@ -254,7 +272,7 @@ Deliverable:
 
 ---
 
-### Stage 2 Operating Systems and Concurrency
+#### Stage 2 Operating Systems and Concurrency
 
 Build:
 
@@ -288,7 +306,7 @@ Deliverable:
 
 ---
 
-### Stage 3 Database Internals
+#### Stage 3 Database Internals
 
 Build simplified versions of:
 
@@ -322,13 +340,13 @@ Resources:
 
 Deliverable:
 
-> A file-backed DurableFlow prototype plus isolated implementations of B+ tree and WAL concepts.
+> A file-backed Aglet prototype plus isolated implementations of B+ tree and WAL concepts.
 
 The production engine will later use PostgreSQL instead of the educational database.
 
 ---
 
-### Stage 4 Computer Networks
+#### Stage 4 Computer Networks
 
 Build:
 
@@ -366,7 +384,7 @@ The production version will later replace this protocol with gRPC.
 
 ---
 
-### Stage 5 System Design HLD and LLD
+#### Stage 5 System Design HLD and LLD
 
 Create separately:
 
@@ -407,7 +425,7 @@ Deliverable:
 
 ---
 
-### Stage 6 Distributed Systems Reliability
+#### Stage 6 Distributed Systems Reliability
 
 Build:
 
@@ -447,7 +465,7 @@ Deliverable:
 
 ---
 
-### Stage 7 Production Tools
+#### Stage 7 Production Tools
 
 Replace or complement educational components with:
 
@@ -469,7 +487,7 @@ Deliverable:
 
 ---
 
-### Stage 8 Scheduling and Backpressure
+#### Stage 8 Scheduling and Backpressure
 
 Implement and compare:
 
@@ -502,7 +520,7 @@ Deliverable:
 
 ---
 
-### Stage 9 Observability and Evaluation
+#### Stage 9 Observability and Evaluation
 
 Instrument:
 
@@ -529,7 +547,7 @@ Deliverable:
 
 ---
 
-### Stage 10 AI Workload Extension
+#### Stage 10 AI Workload Extension
 
 Add:
 
@@ -549,11 +567,11 @@ Deliverable:
 
 ---
 
-## 9. Success Criteria
+### 9. Success Criteria
 
-### Functional Correctness
+#### Functional Correctness
 
-DurableFlow must:
+Aglet must:
 
 - Process a generated CSV containing at least 1,000,000 rows.
 - Produce the same result as a trusted sequential implementation.
@@ -565,7 +583,7 @@ DurableFlow must:
 - Cancel running jobs.
 - Make permanently failing tasks visible.
 
-### Failure Testing
+#### Failure Testing
 
 Test at minimum:
 
@@ -584,7 +602,7 @@ Test at minimum:
 
 Run repeated fault-injection tests. No task may disappear or remain silently stuck.
 
-### Performance Evaluation
+#### Performance Evaluation
 
 Measure:
 
@@ -613,7 +631,7 @@ Every benchmark must record:
 
 The project succeeds by producing correct and reproducible measurements. Resume numbers will be written only after these benchmarks exist.
 
-### Engineering Quality
+#### Engineering Quality
 
 The repository should contain:
 
@@ -628,7 +646,7 @@ The repository should contain:
 - Technical demonstration
 - Clean Git history showing progressive implementation
 
-### Learning Success
+#### Learning Success
 
 The project is successful only when I can explain:
 
@@ -643,11 +661,11 @@ The project is successful only when I can explain:
 - Where backpressure is applied
 - What limits horizontal scaling
 - When consensus is required
-- Which guarantees DurableFlow does and does not provide
+- Which guarantees Aglet does and does not provide
 
 ---
 
-## 10. Non-Goals
+### 10. Non-Goals
 
 The initial project will not:
 
@@ -663,7 +681,7 @@ The initial project will not:
 
 ---
 
-## 11. Academic Engagement
+### 11. Academic Engagement
 
 Professor outreach should start only after the project has:
 
@@ -678,7 +696,7 @@ The purpose is to receive genuine technical feedback and improve the project. Ad
 
 ---
 
-## 12. Final Deliverables
+### 12. Final Deliverables
 
 - Java source repository
 - CSV transaction workload
