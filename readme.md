@@ -15,8 +15,7 @@ A project I wanted to build for fun.
   - [8. Project Stages and Learning Resources](#8-project-stages-and-learning-resources)
   - [9. Success Criteria](#9-success-criteria)
   - [10. Non-Goals](#10-non-goals)
-  - [11. Academic Engagement](#11-academic-engagement)
-  - [12. Final Deliverables](#12-final-deliverables)
+  - [11. Final Deliverables](#12-final-deliverables)
 
 ## Project Definition
 
@@ -681,22 +680,7 @@ The initial project will not:
 
 ---
 
-### 11. Academic Engagement
-
-Professor outreach should start only after the project has:
-
-- A working distributed prototype
-- A short project definition
-- Preliminary failure tests
-- At least one benchmark result
-
-Messages should reference a professor’s relevant research and ask a specific technical question.
-
-The purpose is to receive genuine technical feedback and improve the project. Admission assistance should never be requested or assumed.
-
----
-
-### 12. Final Deliverables
+### 11. Final Deliverables
 
 - Java source repository
 - CSV transaction workload
