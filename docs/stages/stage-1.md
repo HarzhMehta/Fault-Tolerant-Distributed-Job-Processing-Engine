@@ -1,4 +1,4 @@
-<p>This is the first initial phase of the project. Goal of this proj was for me to be better by learning the concepts and applying it for building this project. </p>
+<p>This is the first initial phase of the project. Goal of this proj was for me to be better by learning the concepts and applying it for building this project.</p>
 
 ---
 
